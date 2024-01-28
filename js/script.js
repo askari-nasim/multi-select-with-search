@@ -1,4 +1,4 @@
-let locationsInfo = [
+let foodsInfo = [
     {id:1,name:"Pepperoni",desc:"Pizza sauce, mozzarella, pepperoni"},
     {id:2,name:"Supreme",desc:"Pizza sauce, mozzarella, bacon, onion, beef mince, capsicum, pepperoni, mushroom, olives"},
     {id:3,name:"Hawaiian",desc:"Pizza sauce, mozzarella, ham, pineapple"},
@@ -23,11 +23,11 @@ let locationsInfo = [
 ]
 
 
-let showLocationsID = locationsInfo.map(location => location.id)
+let showFoodsID = foodsInfo.map(food => food.id)
 
 
 let $ = document
-let selectedLocationsID = new Array() //An array to store IDs of checked places
+let selectedFoodsID = new Array() //An array to store IDs of checked places
 let itemContainer = $.querySelector('.multi-select-item-content')
 let selectTitle = $.querySelector('.multi-select-title')
 let selectChipsContainer = $.querySelector('.multi-select-chips-wrapper')
@@ -37,56 +37,56 @@ let acceptBtn = $.querySelector('.ghost-btn ')
 let acceptBtnText = $.querySelector('.accept-button')
 let searchInpueElem = $.querySelector('.modal-text-field-input')
 
-//A function to build each item of location information 
-const addLocationsListToDom = (location) => {  
+//A function to build each item of food information 
+const addFoodsListToDom = (food) => {  
 
-    const isChecked = selectedLocationsID.includes(location.id)
-    const locationsWrapper = $.createElement('label')
-    locationsWrapper.classList.add('location-wrapper')
-    locationsWrapper.setAttribute('location-id',location.id)
-    const locationTitleElem = $.createElement('div')
-    locationTitleElem.classList.add('title-item-wrapper')
-    locationTitleElem.innerHTML = `
-    <div>${location.name}</div>
-    <div class="check-box-wrapper"><input type="checkbox" class="check-item" id=${location.id} ${isChecked ? 'checked' : ''} onChange="tickCheckHandler(this, ${location.id})"></div>
+    const isChecked = selectedFoodsID.includes(food.id)
+    const foodsWrapper = $.createElement('label')
+    foodsWrapper.classList.add('food-wrapper')
+    foodsWrapper.setAttribute('food-id',food.id)
+    const foodTitleElem = $.createElement('div')
+    foodTitleElem.classList.add('title-item-wrapper')
+    foodTitleElem.innerHTML = `
+    <div>${food.name}</div>
+    <div class="check-box-wrapper"><input type="checkbox" class="check-item" id=${food.id} ${isChecked ? 'checked' : ''} onChange="tickCheckHandler(this, ${food.id})"></div>
     `
-    const locationDescElem = $.createElement('div')
-    locationDescElem.classList.add('desc-item')
-    locationDescElem.innerHTML = `
-    ${location.desc}
+    const foodDescElem = $.createElement('div')
+    foodDescElem.classList.add('desc-item')
+    foodDescElem.innerHTML = `
+    ${food.desc}
     `
     const hrElem = $.createElement('hr')
     hrElem.classList.add('divider')
     
-    locationsWrapper.appendChild(locationTitleElem)
-    locationsWrapper.appendChild(locationDescElem)
-    locationsWrapper.appendChild(hrElem)
-    itemContainer.appendChild(locationsWrapper)
+    foodsWrapper.appendChild(foodTitleElem)
+    foodsWrapper.appendChild(foodDescElem)
+    foodsWrapper.appendChild(hrElem)
+    itemContainer.appendChild(foodsWrapper)
     
 }
-//A function to build container of locations based on the input
-const createLocationsWrapper = (locationsID) => {
-    let selectedItems = locationsInfo.filter(location => {
-        return locationsID.some(number => {
-            return number === location.id
+//A function to build container of foods based on the input
+const createFoodsWrapper = (foodsID) => {
+    let selectedItems = foodsInfo.filter(food => {
+        return foodsID.some(number => {
+            return number === food.id
         })
     })
-    selectedItems.forEach(location => {
-        addLocationsListToDom(location)
+    selectedItems.forEach(food => {
+        addFoodsListToDom(food)
     })
 }
 
-createLocationsWrapper(showLocationsID)
+createFoodsWrapper(showFoodsID)
 
 //A function to create each chip
-const createChip = (location) =>{
+const createChip = (food) =>{
     const chipElem = $.createElement('div')
     chipElem.classList.add('select-chips')
-    chipElem.setAttribute('id',`${location.id}`)
+    chipElem.setAttribute('id',`${food.id}`)
     chipElem.innerHTML = `
-    <span class="select-chips-title">${location.name}</span><span class="svg-close-wrapper"> 
+    <span class="select-chips-title">${food.name}</span><span class="svg-close-wrapper"> 
     <svg
-        onclick="closeIconChipHandler(${location.id})"
+        onclick="closeIconChipHandler(${food.id})"
         class="svg-close"
         width="10"
         height="10"
@@ -112,26 +112,26 @@ const notSearchFound = () => {
 
 const tickCheckHandler = (e, id) => e.checked ? checkedInput(id) : uncheckedInput(id)
 
-const findSelectedLocation = (id) => {
-    return locationsInfo.find(location => location.id === id)
+const findSelectedFood = (id) => {
+    return foodsInfo.find(food => food.id === id)
 }
 
 const checkedInput = (id) => {
-    const selectedLocation = findSelectedLocation(id)
-    selectedLocationsID.push(id)
+    const selectedFood = findSelectedFood(id)
+    selectedFoodsID.push(id)
     checkSelectedAny()
-    createChip(selectedLocation)
+    createChip(selectedFood)
 }
 
 const removechip = (id) => {
-    let uncheckLocation = $.getElementById(`${id}`)
-    selectChipsContainer.removeChild(uncheckLocation)
+    let uncheckFood = $.getElementById(`${id}`)
+    selectChipsContainer.removeChild(uncheckFood)
 
 }
 
 //A function to manage the hiding and showing of some styles
 const checkSelectedAny = () => {
-    if (selectedLocationsID.length){
+    if (selectedFoodsID.length){
         selectTitle.classList.remove('hidden')
         selectTitle.classList.add('hidden')
         clearSectionTitle.classList.remove('hidden')
@@ -154,8 +154,8 @@ const checkSelectedAny = () => {
 }
 
 const uncheckedInput = (id) => {
-    const removeChipID = selectedLocationsID.find(uncheckchip => uncheckchip === id)
-    selectedLocationsID = selectedLocationsID.filter(ID => ID != removeChipID)
+    const removeChipID = selectedFoodsID.find(uncheckchip => uncheckchip === id)
+    selectedFoodsID = selectedFoodsID.filter(ID => ID != removeChipID)
     removechip(removeChipID);
     checkSelectedAny()
 }
@@ -167,7 +167,7 @@ const setUncheckHandler = (id) => {
 
 const closeIconChipHandler = (id) => {
     removechip(id)
-    selectedLocationsID = selectedLocationsID.filter(ID => ID !== id)
+    selectedFoodsID = selectedFoodsID.filter(ID => ID !== id)
     setUncheckHandler(id)
     checkSelectedAny()
 }
@@ -175,10 +175,10 @@ const closeIconChipHandler = (id) => {
 const deleteAllChips = () => {
 
     selectChipsContainer.innerHTML = ''
-    selectedLocationsID.forEach(id => {
+    selectedFoodsID.forEach(id => {
         setUncheckHandler(id)
     })
-    selectedLocationsID = []
+    selectedFoodsID = []
     checkSelectedAny()
 
 }
@@ -186,10 +186,10 @@ const deleteAllChips = () => {
 //A function to search in places and show the search result
 const autoSearchHandler = () => {
     let typedValue = searchInpueElem.value
-    let filteredLocationID = locationsInfo.filter(location => location.name.includes(typedValue) || location.desc.includes(typedValue)).map(location => location.id)
-    if(filteredLocationID.length){
+    let filteredFoodID = foodsInfo.filter(food => food.name.includes(typedValue) || food.desc.includes(typedValue)).map(food => food.id)
+    if(filteredFoodID.length){
         itemContainer.innerHTML = ''
-        createLocationsWrapper(filteredLocationID)
+        createFoodsWrapper(filteredFoodID)
     }else{
         itemContainer.innerHTML = ''
         notSearchFound()
@@ -199,7 +199,7 @@ const autoSearchHandler = () => {
 }
 
 const submitBtnHandler = () => {
-    alert(`Number of selected pizzas: ${selectedLocationsID.length} , IDs: ${selectedLocationsID}`)
+    alert(`Number of selected pizzas: ${selectedFoodsID.length} , IDs: ${selectedFoodsID}`)
 }
 
 clearSectionTitle.addEventListener('click',deleteAllChips)

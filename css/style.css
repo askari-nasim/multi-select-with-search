@@ -16,7 +16,7 @@
     font-weight: 400;
 	font-family: tahoma;
 }
-/* A class to manage hide and show before selecting the first location */
+/* A class to manage hide and show before selecting the first food */
 .hidden{
     display: none;
 }
@@ -29,7 +29,7 @@
     align-items: center;
 }
 
-.location-modal{
+.food-modal{
     background-color: var(--white);
     border-radius: 4px;
     box-shadow: 0 8px 48px 8px rgba(0,0,0,.04),0 12px 16px -8px rgba(0,0,0,.12),0 24px 32px 4px rgba(0,0,0,.08);
@@ -44,7 +44,7 @@
 }
 
 /* Start styling the header title */
-.location-modal-header{
+.food-modal-header{
     box-shadow: 0 1px 2px 0 var(--black);
     position: relative;
     z-index: 1;
@@ -203,8 +203,8 @@
 }
 /* finish styling the search box */
 /* ////////////////////////////////////////////////////////////////////////////////////////// */
-/* Start styling body of locations */
-.location-modal-content{
+/* Start styling body of food */
+.food-modal-content{
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
@@ -252,7 +252,7 @@
    
 }
 
-.location-wrapper{
+.food-wrapper{
     cursor: pointer;
 }
 
@@ -309,7 +309,7 @@
     border-color: var(--black);
 }
 
-/* finish styling body of locations */
+/* finish styling body of foods */
 /* //////////////////////////////////////////////////////////////////////////////// */
 /* Start styling footer */
 
