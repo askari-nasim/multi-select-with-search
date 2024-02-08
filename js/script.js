@@ -186,7 +186,7 @@ const deleteAllChips = () => {
 //A function to search in places and show the search result
 const autoSearchHandler = () => {
     let typedValue = searchInpueElem.value
-    let filteredFoodID = foodsInfo.filter(food => food.name.includes(typedValue) || food.desc.includes(typedValue)).map(food => food.id)
+    let filteredFoodID = foodsInfo.filter(food => food.name.toLowerCase().includes(typedValue.toLowerCase()) || food.desc.toLowerCase().includes(typedValue.toLowerCase())).map(food => food.id)
     if(filteredFoodID.length){
         itemContainer.innerHTML = ''
         createFoodsWrapper(filteredFoodID)
